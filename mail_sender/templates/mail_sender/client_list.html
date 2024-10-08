@@ -1,0 +1,38 @@
+{% extends 'mail_sender/base.html' %}
+{% block content %}
+
+
+<main>
+    <a class="btn btn-outline-primary m-2" href="{% url 'mail:create_client' %}">Создать Клиента</a>
+
+    <h2 class="display-6 text-center mb-4">Список клиентов</h2>
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th style="width: 10%;">№</th>
+                <th style="width: 20%;">ФИО</th>
+                <th style="width: 20%;">Почта</th>
+                <th style="width: 30%;">Комментарий</th>
+                <th style="width: 10%;"></th>
+                <th style="width: 10%;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.pk }}</td>
+                <td>{{ object.name| title }}</td>
+                <td>{{ object.email }}</td>
+                <td>{{ object.comment }}</td>
+                <td><a href="{% url 'mail:update_client' object.pk %}" class="btn btn-outline-warning"
+                       type="button">Редактировать</a></td>
+                <td><a href="{% url 'mail:delete_client' object.pk %}" class="btn btn-outline-danger"
+                       type="button">Удалить</a></td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock %}

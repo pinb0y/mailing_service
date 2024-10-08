@@ -14,10 +14,10 @@ class Client(models.Model):
     class Meta:
         verbose_name = "Клиент"
         verbose_name_plural = "Клиенты"
-        ordering = ['name']
+        ordering = ['id']
 
 
-class Massage(models.Model):
+class Message(models.Model):
     title = models.CharField(max_length=500, verbose_name='Заголовок')
     body = models.TextField(verbose_name='Сообщение')
 
@@ -46,7 +46,7 @@ class Mailing(models.Model):
 
     name = models.CharField(max_length=150, verbose_name='Название рассылки')
     client = models.ManyToManyField(Client, verbose_name='клиент', related_name='mailings')
-    massage = models.ForeignKey(Massage, on_delete=models.SET_NULL, verbose_name='Сообщение', **NULLABLE)
+    message = models.ForeignKey(Message, on_delete=models.SET_NULL, verbose_name='Сообщение', **NULLABLE)
     start_mailing = models.DateTimeField(verbose_name='Дата и время начала рассылки')
     end_mailing = models.DateTimeField(verbose_name='Дата и время окончания рассылки')
     periodicity = models.CharField(default='Неделя', max_length=50, verbose_name='Периодичность',

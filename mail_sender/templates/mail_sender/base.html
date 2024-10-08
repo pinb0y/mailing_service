@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pricing example · Bootstrap v5.3</title>
+    <title>{{title}}</title>
 
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -91,11 +91,11 @@
     </style>
 </head>
 <body>
-         {% include 'mail_sender/includes/theme.html' %}
+{% include 'mail_sender/includes/theme.html' %}
 
 <div class="container py-3">
     <header>
-         {% include 'mail_sender/includes/menu.html' %}
+        {% include 'mail_sender/includes/menu.html' %}
 
     </header>
 
@@ -103,7 +103,7 @@
     {% block content %}
     {% endblock %}
 
-         {% include 'mail_sender/includes/footer.html' %}
+    {% include 'mail_sender/includes/footer.html' %}
 
 </div>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
