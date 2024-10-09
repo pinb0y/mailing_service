@@ -1,4 +1,7 @@
+
+
 from django.db import models
+from django.utils import timezone
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -47,8 +50,8 @@ class Mailing(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название рассылки')
     client = models.ManyToManyField(Client, verbose_name='клиент', related_name='mailings')
     message = models.ForeignKey(Message, on_delete=models.SET_NULL, verbose_name='Сообщение', **NULLABLE)
-    start_mailing = models.DateTimeField(verbose_name='Дата и время начала рассылки')
-    end_mailing = models.DateTimeField(verbose_name='Дата и время окончания рассылки')
+    start_mailing = models.DateField(verbose_name='Дата начала рассылки')
+    end_mailing = models.DateField(verbose_name='Дата окончания рассылки')
     periodicity = models.CharField(default='Неделя', max_length=50, verbose_name='Периодичность',
                                    choices=PERIODIC_TYPES)
     status = models.CharField(default='Создана', max_length=50, verbose_name='Статус рассылки', choices=STATUS_TYPES)
@@ -62,10 +65,14 @@ class Mailing(models.Model):
 
 class MailingTry(models.Model):
 
+    STATUS_TYPES = (
+        ('Успешно', 'Успешно'),
+        ('Провал', 'Провал'),
+    )
+
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Рассылка')
-    client = models.ForeignKey(Client, verbose_name='Клиент', on_delete=models.SET_NULL, **NULLABLE)
-    last_try_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время последней попытки')
-    status = models.BooleanField(verbose_name='статус')
+    last_try_date = models.DateTimeField(default=timezone.now, verbose_name='Дата и время последней попытки', **NULLABLE)
+    status = models.CharField(default='Успешно', max_length=50, verbose_name='Статус', choices=STATUS_TYPES)
 
     def __str__(self):
         return f'{self.pk} - {self.mailing.name} ({self.status})'
