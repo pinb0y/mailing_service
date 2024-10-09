@@ -7,22 +7,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail_sender', '0006_alter_mailing_end_mailing_and_more'),
+        ("mail_sender", "0006_alter_mailing_end_mailing_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='mailingtry',
-            name='client',
+            model_name="mailingtry",
+            name="client",
         ),
         migrations.AlterField(
-            model_name='mailingtry',
-            name='last_try_date',
-            field=models.DateTimeField(blank=True, default=datetime.datetime(2024, 10, 9, 20, 4, 20, 274290), null=True, verbose_name='Дата и время последней попытки'),
+            model_name="mailingtry",
+            name="last_try_date",
+            field=models.DateTimeField(
+                blank=True,
+                default=datetime.datetime(2024, 10, 9, 20, 4, 20, 274290),
+                null=True,
+                verbose_name="Дата и время последней попытки",
+            ),
         ),
         migrations.AlterField(
-            model_name='mailingtry',
-            name='status',
-            field=models.CharField(choices=[('Успешно', 'Успешно'), ('Провал', 'Провал')], default='Успешно', max_length=50, verbose_name='Статус'),
+            model_name="mailingtry",
+            name="status",
+            field=models.CharField(
+                choices=[("Успешно", "Успешно"), ("Провал", "Провал")],
+                default="Успешно",
+                max_length=50,
+                verbose_name="Статус",
+            ),
         ),
     ]

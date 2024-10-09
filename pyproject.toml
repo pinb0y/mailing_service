@@ -12,6 +12,7 @@ psycopg2-binary = "^2.9.9"
 django-stubs = "^5.1.0"
 python-dotenv = "^1.0.1"
 django-crontab = "^0.7.1"
+black = "^24.10.0"
 
 
 [build-system]

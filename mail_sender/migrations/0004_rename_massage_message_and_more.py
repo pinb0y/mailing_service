@@ -6,17 +6,17 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail_sender', '0003_alter_mailing_start_mailing'),
+        ("mail_sender", "0003_alter_mailing_start_mailing"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Massage',
-            new_name='Message',
+            old_name="Massage",
+            new_name="Message",
         ),
         migrations.RenameField(
-            model_name='mailing',
-            old_name='massage',
-            new_name='message',
+            model_name="mailing",
+            old_name="massage",
+            new_name="message",
         ),
     ]

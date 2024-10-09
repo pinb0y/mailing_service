@@ -17,13 +17,14 @@ class StyleFormMixin:
 
 class MessageForm(StyleFormMixin, ModelForm):
     """Основная форма создания сообщения рассылки: тема, сообщение, список получателей"""
+
     recipient = ModelMultipleChoiceField(
         queryset=Client.objects.all(),
     )
 
     class Meta:
         model = Message
-        fields = '__all__'
+        fields = "__all__"
 
 
 class MailingForm(StyleFormMixin, ModelForm):
@@ -31,21 +32,20 @@ class MailingForm(StyleFormMixin, ModelForm):
 
     class Meta:
         model = Mailing
-        exclude = ('status',)
+        exclude = ("status",)
         widgets = {
-            'start_mailing': DateInput(attrs={
-                'type': 'date-local',
-                'placeholder': 'Введите дату'
-            }),
-            'end_mailing': DateInput(attrs={
-                'type': 'date-local',
-                'placeholder': 'Введите дату'
-            }),
+            "start_mailing": DateInput(
+                attrs={"type": "date-local", "placeholder": "Введите дату"}
+            ),
+            "end_mailing": DateInput(
+                attrs={"type": "date-local", "placeholder": "Введите дату"}
+            ),
         }
 
 
 class ClientForm(StyleFormMixin, ModelForm):
     """Форма создания клиента"""
+
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = "__all__"

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail_sender', '0005_alter_client_options'),
+        ("mail_sender", "0005_alter_client_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mailing',
-            name='end_mailing',
-            field=models.DateField(verbose_name='Дата окончания рассылки'),
+            model_name="mailing",
+            name="end_mailing",
+            field=models.DateField(verbose_name="Дата окончания рассылки"),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='start_mailing',
-            field=models.DateField(verbose_name='Дата начала рассылки'),
+            model_name="mailing",
+            name="start_mailing",
+            field=models.DateField(verbose_name="Дата начала рассылки"),
         ),
     ]

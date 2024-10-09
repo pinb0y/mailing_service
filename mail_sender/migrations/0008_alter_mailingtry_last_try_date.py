@@ -7,13 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail_sender', '0007_remove_mailingtry_client_and_more'),
+        ("mail_sender", "0007_remove_mailingtry_client_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mailingtry',
-            name='last_try_date',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now, null=True, verbose_name='Дата и время последней попытки'),
+            model_name="mailingtry",
+            name="last_try_date",
+            field=models.DateTimeField(
+                blank=True,
+                default=django.utils.timezone.now,
+                null=True,
+                verbose_name="Дата и время последней попытки",
+            ),
         ),
     ]

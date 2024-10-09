@@ -7,4 +7,4 @@ from mail_sender.services import send_mailing
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        send_mailing('Неделя')
+        send_mailing("Неделя")
