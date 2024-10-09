@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 
+from mail_sender.forms import MessageForm, MailingForm, ClientForm
 from mail_sender.models import Mailing, Client, Message
 
 
@@ -14,17 +15,18 @@ class MailingDetailView(DetailView):
 
 class MailingCreateView(CreateView):
     model = Mailing
+    form_class = MailingForm
     success_url = reverse_lazy('mail:mailings')
-    fields = '__all__'
 
 
 class MailingUpdateView(UpdateView):
     model = Mailing
-    fields = '__all__'
+    form_class = MailingForm
 
     def get_success_url(self):
         """Переход к блогу после успешного редактирования"""
         return reverse("mail:detail_mailing", args=[self.kwargs.get("pk")])
+
 
 class MailingDeleteView(DeleteView):
     model = Mailing
@@ -38,13 +40,13 @@ class ClientListView(ListView):
 class ClientCreateView(CreateView):
     model = Client
     success_url = reverse_lazy('mail:clients')
-    fields = '__all__'
+    form_class = ClientForm
 
 
 class ClientUpdateView(UpdateView):
     model = Client
     success_url = reverse_lazy('mail:clients')
-    fields = '__all__'
+    form_class = ClientForm
 
 
 class ClientDeleteView(DeleteView):
@@ -58,14 +60,14 @@ class MessageListView(ListView):
 
 class MessageCreateView(CreateView):
     model = Message
+    form_class = MessageForm
     success_url = reverse_lazy('mail:messages')
-    fields = '__all__'
 
 
 class MessageUpdateView(UpdateView):
     model = Message
+    form_class = MessageForm
     success_url = reverse_lazy('mail:messages')
-    fields = '__all__'
 
 
 class MessageDeleteView(DeleteView):
