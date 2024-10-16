@@ -7,7 +7,9 @@ from users.views import (
     ProfileView,
     email_verification,
     UserResetPasswordView,
-    NotMailPageView, UserListView, block_user,
+    NotMailPageView,
+    UserListView,
+    block_user,
 )
 
 app_name = UsersConfig.name

@@ -8,6 +8,8 @@ from mail_sender.models import Mailing, MailingTry
 
 
 def launch_new_mailings():
+    """Функция активирует рассылку если пришло ее время."""
+
     curr_date = datetime.now()
 
     mailing_new = Mailing.objects.filter(
@@ -21,6 +23,8 @@ def launch_new_mailings():
 
 
 def stop_finished_mailings():
+    """Функция останавливает рассылку если закончилось ее время."""
+
     curr_date = datetime.now()
 
     mailings_finished = Mailing.objects.filter(
@@ -34,17 +38,23 @@ def stop_finished_mailings():
 
 
 def create_mailing_try(mailing, status):
+    """Функция создает запись о попытке рассылке в базе данных."""
+
     MailingTry.objects.create(
         mailing=mailing, status=status, last_try_date=timezone.now()
     )
 
 
 def prepare_mailings():
+    """Функция запускает и заканчивает рассылки."""
+
     launch_new_mailings()
     stop_finished_mailings()
 
 
 def send_mailing(periodicity):
+    """Функция отправляет письмо с рассылкой и делает запись в базу данных о попытке рассылки."""
+
     mailing_list = Mailing.objects.filter(status="Запущена", periodicity=periodicity)
     if mailing_list.exists():
         for mailing in mailing_list:

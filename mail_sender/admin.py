@@ -18,7 +18,11 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(MailingTry)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ("mailing", "status", "last_try_date",)
+    list_display = (
+        "mailing",
+        "status",
+        "last_try_date",
+    )
 
 
 @admin.register(Message)

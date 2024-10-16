@@ -13,23 +13,32 @@ from mail_sender.views import UserLoginRequiredMixin
 from users.forms import UserRegisterForm, UserProfileForm, ResetPasswordForm
 from users.models import User
 
+
 class UserListView(LoginRequiredMixin, ListView):
     model = User
 
     def get_queryset(self, *args, **kwargs):
+        """Метод получает кверисет из всех пользователей для менеджера или суперпользователя."""
+
         user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
+
         if user.is_superuser or user.groups.filter(name="manager"):
             return queryset
 
+
 def block_user(requests, pk):
+    """Вьюха для блокировки пользователя."""
+
     user = User.objects.get(pk=pk)
+
     if user.is_active:
         user.is_active = False
     else:
         user.is_active = True
     user.save()
-    return redirect(reverse('users:list'))
+
+    return redirect(reverse("users:list"))
 
 
 class RegisterView(CreateView):
@@ -39,6 +48,8 @@ class RegisterView(CreateView):
     success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
+        """ При регистрации пользователя формируем ему токен и отправляем письмо на почту с ним."""
+
         user = form.save()
         user.is_active = False
         token = secrets.token_hex(16)
@@ -46,12 +57,14 @@ class RegisterView(CreateView):
         user.save()
         host = self.request.get_host()
         url = f"http://{host}/users/email-confirm/{token}/"
+
         send_mail(
             subject="Подтверждение почты",
             message=f"Добрый день! Перейдите по ссылке для подтверждения {url}",
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
         )
+
         return super().form_valid(form)
 
 
@@ -61,10 +74,14 @@ class ProfileView(UserLoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("mail:mailings")
 
     def get_object(self):
+        """Метод возвращает авторизованного пользователя."""
+
         return self.request.user
 
 
 def email_verification(requests, token):
+    """Метод верификации почты и активации пользователя"""
+
     user = get_object_or_404(User, token=token)
     user.is_active = True
     user.save()
@@ -77,13 +94,16 @@ class UserResetPasswordView(PasswordResetView):
     success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
+        """Отправка нового сгенерированного пароля на почту."""
         email = form.cleaned_data["email"]
+
         try:
             user = User.objects.get(email=email)
             if user:
                 password = User.objects.make_random_password(length=10)
                 user.set_password(password)
                 user.save()
+
                 send_mail(
                     subject="Сброс пароля",
                     message=f" Ваш новый пароль {password}",
@@ -91,6 +111,7 @@ class UserResetPasswordView(PasswordResetView):
                     recipient_list=[user.email],
                 )
             return redirect(reverse("users:login"))
+
         except:
             return redirect(reverse("users:no_email"))
 

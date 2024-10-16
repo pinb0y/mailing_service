@@ -12,7 +12,7 @@ class Blog(models.Model):
     is_published = models.BooleanField("Статус публикации", default=True)
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
     updated_at = models.DateTimeField("Дата и время изменения", auto_now=True)
-    slug = models.CharField("Слаг", max_length=200, default="#", editable=False)
+    slug = models.CharField("Слаг", max_length=500, default="#", editable=False)
     view_counter = models.IntegerField("Счетчик просмотров", default=0, editable=False)
 
     class Meta:

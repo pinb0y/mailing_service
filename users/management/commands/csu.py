@@ -4,6 +4,7 @@ from users.models import User
 
 
 class Command(BaseCommand):
+    """Скрипт для создания суперпользователя."""
 
     def handle(self, *args, **options):
         user = User.objects.create(

@@ -15,6 +15,7 @@ from mail_sender.models import Mailing, Client, Message
 
 
 class UserLoginRequiredMixin(LoginRequiredMixin):
+    """Миксин для добавления адреса страницы логирования."""
     login_url = "/users/"
     permission_denied_message = "Только для авторизованных пользователей"
 
@@ -25,10 +26,15 @@ class MailingListView(UserLoginRequiredMixin, ListView):
     extra_context = {"title": "Список рассылок"}
 
     def get_queryset(self, *args, **kwargs):
+        """Получаем кверисет со всеми рассылками для суперюзера или менеджера
+        и для конкретного пользователя список только его рассылок."""
+
         user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
+
         if user.is_superuser or user.groups.filter(name="manager"):
             return queryset
+
         return queryset.filter(owner=user)
 
 
@@ -37,12 +43,18 @@ class MailingDetailView(UserLoginRequiredMixin, DetailView):
     permission_required = "mail_sender.view_mailing"
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий детально просматривать только свои рассылки."""
+
         self.object = super().get_object(queryset)
-        if self.object.owner == self.request.user or self.request.user.is_superuser or self.request.user.groups.filter(
-                name="manager"):
+
+        if (
+                self.object.owner == self.request.user
+                or self.request.user.is_superuser
+                or self.request.user.groups.filter(name="manager")
+        ):
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
 
 class MailingCreateView(UserLoginRequiredMixin, CreateView):
@@ -52,7 +64,10 @@ class MailingCreateView(UserLoginRequiredMixin, CreateView):
     success_url = reverse_lazy("mail:mailings")
 
     def form_valid(self, form):
+        """При создании рассылки привязываем ей владельцем текущего пользователя."""
+
         form.instance.owner = self.request.user
+
         return super().form_valid(form)
 
 
@@ -62,11 +77,14 @@ class MailingUpdateView(UserLoginRequiredMixin, UpdateView):
     form_class = MailingForm
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий редактировать только свои рассылки."""
+
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
     def get_success_url(self):
         """Переход к блогу после успешного редактирования"""
@@ -79,11 +97,14 @@ class MailingDeleteView(UserLoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("mail:mailings")
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий удалять только свои рассылки."""
+
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
 
 class ClientListView(UserLoginRequiredMixin, ListView):
@@ -91,10 +112,15 @@ class ClientListView(UserLoginRequiredMixin, ListView):
     permission_required = "mail_sender.view_client"
 
     def get_queryset(self, *args, **kwargs):
+        """Получаем кверисет со всеми клиентами для суперюзера или менеджера
+                и для конкретного пользователя список только его клиентов."""
+
         user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
+
         if user.is_superuser or user.groups.filter(name="manager"):
             return queryset
+
         return queryset.filter(owner=user)
 
 
@@ -105,7 +131,10 @@ class ClientCreateView(UserLoginRequiredMixin, CreateView):
     permission_required = "mail_sender.add_client"
 
     def form_valid(self, form):
+        """Метод привязывает текущего пользователя к клиенту при создании."""
+
         form.instance.owner = self.request.user
+
         return super().form_valid(form)
 
 
@@ -116,11 +145,14 @@ class ClientUpdateView(UserLoginRequiredMixin, UpdateView):
     permission_required = "mail_sender.change_client"
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий редактировать только своих клиентов."""
+
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
 
 class ClientDeleteView(UserLoginRequiredMixin, DeleteView):
@@ -129,11 +161,13 @@ class ClientDeleteView(UserLoginRequiredMixin, DeleteView):
     permission_required = "mail_sender.delete_client"
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий удалять только своих клиентов."""
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
 
 class MessageListView(UserLoginRequiredMixin, ListView):
@@ -141,10 +175,15 @@ class MessageListView(UserLoginRequiredMixin, ListView):
     permission_required = "mail_sender.view_message"
 
     def get_queryset(self, *args, **kwargs):
+        """Получаем кверисет со всеми сообщениями для суперюзера или менеджера
+                и для конкретного пользователя список только его сообщений."""
+
         user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
+
         if user.is_superuser or user.groups.filter(name="manager"):
             return queryset
+
         return queryset.filter(owner=user)
 
 
@@ -155,7 +194,10 @@ class MessageCreateView(UserLoginRequiredMixin, CreateView):
     permission_required = "mail_sender.add_message"
 
     def form_valid(self, form):
+        """Метод привязывает текущего пользователя к сообщению."""
+
         form.instance.owner = self.request.user
+
         return super().form_valid(form)
 
 
@@ -166,11 +208,14 @@ class MessageUpdateView(UserLoginRequiredMixin, UpdateView):
     permission_required = "mail_sender.change_message"
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий редактировать только свои сообщения."""
+
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
 
 
 class MessageDeleteView(UserLoginRequiredMixin, DeleteView):
@@ -179,17 +224,26 @@ class MessageDeleteView(UserLoginRequiredMixin, DeleteView):
     permission_required = "mail_sender.delete_message"
 
     def get_object(self, queryset=None):
-        """Редактировать можно только свои сообщения"""
+        """Метод разрешающий удалять только свои сообщения."""
+
         self.object = super().get_object(queryset)
+
         if self.object.owner == self.request.user or self.request.user.is_superuser:
             return self.object
-        raise Http404('Вы не можете редактировать чужие записи о клиентах')
+
+        raise Http404("Вы не можете редактировать чужие записи о клиентах")
+
 
 def change_mailing_status(requests, pk):
+    """ Вьюха для смены статуса рассылки менеджером"""
+
     mailing = Mailing.objects.get(pk=pk)
+
     if mailing.status == "Приостановлена":
         mailing.status = "Запущена"
     else:
         mailing.status = "Приостановлена"
+
     mailing.save()
-    return redirect(reverse('mail:mailings'))
+
+    return redirect(reverse("mail:mailings"))

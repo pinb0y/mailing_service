@@ -10,7 +10,13 @@ class Client(models.Model):
     name = models.CharField(max_length=100, verbose_name="ФИО клиента")
     email = models.EmailField(verbose_name="Почта", unique=True)
     comment = models.TextField(verbose_name="Комментарий", **NULLABLE)
-    owner = models.ForeignKey(User, verbose_name="Создатель", on_delete=models.CASCADE, **NULLABLE, editable=False)
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Создатель",
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        editable=False,
+    )
 
     def __str__(self):
         return f"{self.name}"
@@ -24,7 +30,13 @@ class Client(models.Model):
 class Message(models.Model):
     title = models.CharField(max_length=500, verbose_name="Заголовок")
     body = models.TextField(verbose_name="Сообщение")
-    owner = models.ForeignKey(User, verbose_name="Создатель", on_delete=models.CASCADE, **NULLABLE, editable=False)
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Создатель",
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        editable=False,
+    )
 
     def __str__(self):
         return f"{self.title}"
@@ -70,8 +82,13 @@ class Mailing(models.Model):
         verbose_name="Статус рассылки",
         choices=STATUS_TYPES,
     )
-    owner = models.ForeignKey(User, verbose_name="Создатель", on_delete=models.CASCADE, **NULLABLE, editable=False)
-
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Создатель",
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        editable=False,
+    )
 
     def __str__(self):
         return f"{self.name}"

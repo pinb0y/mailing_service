@@ -11,15 +11,13 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if isinstance(field.widget, CheckboxInput):
-                field.widget.attrs['class'] = 'form-check-input'
+                field.widget.attrs["class"] = "form-check-input"
             else:
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs["class"] = "form-control"
 
 
 class MessageForm(StyleFormMixin, ModelForm):
     """Основная форма создания сообщения рассылки: тема, сообщение, список получателей"""
-
-
 
     class Meta:
         model = Message
