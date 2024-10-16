@@ -1,0 +1,36 @@
+{% extends 'mail_sender/base.html' %}
+{% block content %}
+
+
+<main>
+    <a class="btn btn-outline-primary m-2" href="{% url 'mail:create_mailing' %}">Создать рассылку</a>
+
+    <h2 class="display-6 text-center mb-4">Список рассылок</h2>
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th style="width: 10%;">№</th>
+                <th style="width: 20%;">Название</th>
+                <th style="width: 20%;">Дата начала</th>
+                <th style="width: 20%;">Дата окончания</th>
+                <th style="width: 15%;">Периодичность</th>
+                <th style="width: 15%;">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{object.pk}}</td>
+                <td><a href="{% url 'mail:detail_mailing' object.pk %}">{{object.name| title}}</a></td>
+                <td>{{ object.start_mailing }}</td>
+                <td>{{ object.end_mailing }}</td>
+                <td>{{ object.periodicity }}</td>
+                <td>{{ object.status }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock %}

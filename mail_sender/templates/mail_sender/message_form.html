@@ -1,0 +1,31 @@
+{% extends 'mail_sender/base.html' %}
+{% block content %}
+
+<main>
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8 offset-md-2">
+            <div class="card m-4">
+                <div class="card-text m-2">
+                    {% if object %}
+                    Редактирование сообщения
+                    {% else %}
+                    Создание сообщения
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">
+                        {% if object %}
+                        Изменить
+                        {% else %}
+                        Создать
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+
+{% endblock %}

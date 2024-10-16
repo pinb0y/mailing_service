@@ -1,0 +1,22 @@
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="{% url 'index:index' %}" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+        <span class="fs-4">ТУРБО СПАМЕР СРИ САУЗЕНТ</span>
+    </a>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        {% if perms.users.set_user_is_active %}
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:list' %}">Пользователи</a>
+        {% endif %}
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mail:mailings' %}">Рассылки</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mail:messages' %}">Сообщения</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mail:clients' %}">Клиенты</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'blog:blog_list' %}">Блог</a>
+        {% if user.is_authenticated %}
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:logout' %}">Выйти</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:profile' %}">Профиль: {{ user.email }}</a>
+        {% else %}
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:login' %}">Войти</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:register' %}">Регистрация пользователя</a>
+        {% endif %}
+    </nav>
+</div>

@@ -1,0 +1,201 @@
+[
+  {
+    "model": "mail_sender.client",
+    "pk": 1,
+    "fields": {
+      "name": "Сергей",
+      "email": "pinboyer@gmail.com",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 2,
+    "fields": {
+      "name": "Андрей",
+      "email": "Andrey@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 3,
+    "fields": {
+      "name": "Антиох",
+      "email": "Antiokh@email.com",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 4,
+    "fields": {
+      "name": "Понтилимей",
+      "email": "Pontilimey@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 5,
+    "fields": {
+      "name": "Кузя",
+      "email": "Kuzya@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 6,
+    "fields": {
+      "name": "Дуся",
+      "email": "Dusiya@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 7,
+    "fields": {
+      "name": "Милена",
+      "email": "Milena@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 8,
+    "fields": {
+      "name": "Китана",
+      "email": "Kitana@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 9,
+    "fields": {
+      "name": "Джейд",
+      "email": "Jade@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 10,
+    "fields": {
+      "name": "Скидвард",
+      "email": "squidward@email.ru",
+      "comment": "",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 11,
+    "fields": {
+      "name": "Матвей",
+      "email": "matvey@mail.ru",
+      "comment": "",
+      "owner": 4
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 1,
+    "fields": {
+      "title": "С днем Яйцечеса",
+      "body": "Поздравляю вас, сударь!!",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 2,
+    "fields": {
+      "title": "С днем всех влюбленных в пельмешки!",
+      "body": "Поздравлямба!",
+      "owner": null
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 3,
+    "fields": {
+      "title": "Просто с пятничкой, бьят!",
+      "body": "Бьят, Бьятан, Бьятишка!\r\nПоздравляю я тебя.\r\nТебе седня крышка.\r\nТрололо и Труляля!",
+      "owner": 1
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 4,
+    "fields": {
+      "title": "ЗА ВДВ!",
+      "body": "До первой крови",
+      "owner": 4
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 8,
+    "fields": {
+      "name": "test5",
+      "message": 2,
+      "start_mailing": "2024-10-15",
+      "end_mailing": "2024-10-20",
+      "periodicity": "День",
+      "status": "Запущена",
+      "owner": 1,
+      "client": [
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 10,
+    "fields": {
+      "name": "test6",
+      "message": 1,
+      "start_mailing": "2024-10-11",
+      "end_mailing": "2024-10-20",
+      "periodicity": "Неделя",
+      "status": "Запущена",
+      "owner": 3,
+      "client": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 11,
+    "fields": {
+      "name": "test8",
+      "message": 2,
+      "start_mailing": "2024-10-16",
+      "end_mailing": "2024-10-20",
+      "periodicity": "Неделя",
+      "status": "Запущена",
+      "owner": 4,
+      "client": [
+        3,
+        8,
+        9,
+        10
+      ]
+    }
+  }
+]

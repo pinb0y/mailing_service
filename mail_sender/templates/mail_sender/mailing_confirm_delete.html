@@ -1,0 +1,20 @@
+{% extends 'mail_sender/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row m-4">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Хотите удалить рассылку "{{ object.name }}"?</p>
+                        <button type="submit" class="btn btn-danger">Да</button>
+                        <a href="{% url 'mail:mailings' %}" class="btn btn-success">Нет</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

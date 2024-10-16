@@ -1,0 +1,40 @@
+{% extends 'mail_sender/base.html' %}
+{% block content %}
+
+
+<main>
+    <h2 class="display-6 text-center mb-4">карточка рассылки</h2>
+    <div class="container text-center">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-title text-center text-bg-secondary">
+                    <h4 class="card-title">
+                        {{object.name}}
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    <p> С {{object.start_mailing}} по {{object.end_mailing}}</p>
+                    <p> Периодичность: {{object.periodicity}}</p>
+                    <p> Статус: {{object.status}}</p>
+                    <p> Создатель: {{object.owner}}</p>
+                    {% if user.is_superuser or user == object.owner %}
+                    <a href="{% url 'mail:update_mailing' object.pk %}" class="btn btn-warning"
+                       type="button">Редактировать</a>
+                    <a href="{% url 'mail:delete_mailing' object.pk %}" class="btn btn-danger"
+                       type="button">Удалить</a>
+                    {% elif perms.mail_sender.set_mailing_status %}
+                    {% if object.status != "Приостановлена" %}
+                    <a href="{% url 'mail:change_status' object.pk %}" class="btn btn-danger"
+                       type="button">Остановить рассылку</a>
+                    {% else %}
+                    <a href="{% url 'mail:change_status' object.pk %}" class="btn btn-success"
+                       type="button">Возобновить рассылку</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
