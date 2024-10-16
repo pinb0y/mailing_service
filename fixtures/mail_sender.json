@@ -1,0 +1,175 @@
+[
+  {
+    "model": "mail_sender.client",
+    "pk": 1,
+    "fields": {
+      "name": "Сергей",
+      "email": "pinboyer@gmail.com",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 2,
+    "fields": {
+      "name": "Андрей",
+      "email": "Andrey@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 3,
+    "fields": {
+      "name": "Антиох",
+      "email": "Antiokh@email.com",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 4,
+    "fields": {
+      "name": "Понтилимей",
+      "email": "Pontilimey@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 5,
+    "fields": {
+      "name": "Кузя",
+      "email": "Kuzya@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 6,
+    "fields": {
+      "name": "Дуся",
+      "email": "Dusiya@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 7,
+    "fields": {
+      "name": "Милена",
+      "email": "Milena@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 8,
+    "fields": {
+      "name": "Китана",
+      "email": "Kitana@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 9,
+    "fields": {
+      "name": "Джейд",
+      "email": "Jade@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.client",
+    "pk": 10,
+    "fields": {
+      "name": "Скидвард",
+      "email": "squidward@email.ru",
+      "comment": ""
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 1,
+    "fields": {
+      "title": "С днем Яйцечеса",
+      "body": "Поздравляю вас, сударь!!"
+    }
+  },
+  {
+    "model": "mail_sender.message",
+    "pk": 2,
+    "fields": {
+      "title": "С днем всех влюбленных в пельмешки!",
+      "body": "Поздравлямба!"
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 5,
+    "fields": {
+      "name": "test",
+      "message": 1,
+      "start_mailing": "2024-10-09",
+      "end_mailing": "2024-10-10",
+      "periodicity": "День",
+      "status": "Закончена",
+      "client": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 6,
+    "fields": {
+      "name": "тест2",
+      "message": 2,
+      "start_mailing": "2024-10-11",
+      "end_mailing": "2024-10-13",
+      "periodicity": "День",
+      "status": "Запущена",
+      "client": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "mail_sender.mailing",
+    "pk": 7,
+    "fields": {
+      "name": "тест3",
+      "message": 1,
+      "start_mailing": "2024-10-11",
+      "end_mailing": "2024-10-30",
+      "periodicity": "Неделя",
+      "status": "Запущена",
+      "client": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "mail_sender.mailingtry",
+    "pk": 4,
+    "fields": {
+      "mailing": 7,
+      "last_try_date": "2024-10-11T07:30:02.500Z",
+      "status": "Успешно"
+    }
+  },
+  {
+    "model": "mail_sender.mailingtry",
+    "pk": 5,
+    "fields": {
+      "mailing": 6,
+      "last_try_date": "2024-10-11T07:30:02.545Z",
+      "status": "Успешно"
+    }
+  }
+]

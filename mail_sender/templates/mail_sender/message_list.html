@@ -24,10 +24,12 @@
                 <td>{{ object.pk }}</td>
                 <td>{{ object.title| title }}</td>
                 <td>{{ object.body }}</td>
+                {% if user.is_superuser or user == object.owner %}
                 <td><a href="{% url 'mail:update_message' object.pk %}" class="btn btn-outline-warning"
                        type="button">Редактировать</a></td>
                 <td><a href="{% url 'mail:delete_message' object.pk %}" class="btn btn-outline-danger"
                        type="button">Удалить</a></td>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

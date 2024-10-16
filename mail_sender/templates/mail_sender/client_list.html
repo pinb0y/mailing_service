@@ -14,6 +14,7 @@
                 <th style="width: 20%;">ФИО</th>
                 <th style="width: 20%;">Почта</th>
                 <th style="width: 30%;">Комментарий</th>
+                <th style="width: 30%;">Пользователь</th>
                 <th style="width: 10%;"></th>
                 <th style="width: 10%;"></th>
             </tr>
@@ -25,10 +26,13 @@
                 <td>{{ object.name| title }}</td>
                 <td>{{ object.email }}</td>
                 <td>{{ object.comment }}</td>
+                <td>{{ object.owner }}</td>
+                {% if user.is_superuser or user == object.owner %}
                 <td><a href="{% url 'mail:update_client' object.pk %}" class="btn btn-outline-warning"
                        type="button">Редактировать</a></td>
                 <td><a href="{% url 'mail:delete_client' object.pk %}" class="btn btn-outline-danger"
                        type="button">Удалить</a></td>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

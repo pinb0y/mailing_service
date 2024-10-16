@@ -12,12 +12,13 @@ class MailingAdmin(admin.ModelAdmin):
         "end_mailing",
         "periodicity",
         "status",
+        "owner",
     )
 
 
 @admin.register(MailingTry)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ("mailing", "status", "last_try_date")
+    list_display = ("mailing", "status", "last_try_date",)
 
 
 @admin.register(Message)
@@ -25,6 +26,7 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "body",
+        "owner",
     )
 
 
@@ -34,4 +36,5 @@ class ClientAdmin(admin.ModelAdmin):
         "name",
         "email",
         "comment",
+        "owner",
     )

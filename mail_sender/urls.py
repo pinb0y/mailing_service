@@ -14,7 +14,7 @@ from mail_sender.views import (
     MessageCreateView,
     MessageUpdateView,
     MessageListView,
-    MessageDeleteView,
+    MessageDeleteView, change_mailing_status,
 )
 
 app_name = MailSenderConfig.name
@@ -37,4 +37,5 @@ urlpatterns = [
         "delete_message/<int:pk>/", MessageDeleteView.as_view(), name="delete_message"
     ),
     path("messages/", MessageListView.as_view(), name="messages"),
+    path("change_status/<int:pk>/", change_mailing_status, name="change_status"),
 ]
