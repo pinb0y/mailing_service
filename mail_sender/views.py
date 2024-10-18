@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 
 from mail_sender.forms import MessageForm, MailingForm, ClientForm
-from mail_sender.models import Mailing, Client, Message
+from mail_sender.models import Mailing, Client, Message, MailingTry
 
 
 class UserLoginRequiredMixin(LoginRequiredMixin):
@@ -247,3 +247,6 @@ def change_mailing_status(requests, pk):
     mailing.save()
 
     return redirect(reverse("mail:mailings"))
+
+class MailingTryListView(LoginRequiredMixin, ListView):
+    model = MailingTry
